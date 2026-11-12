@@ -1,0 +1,26 @@
+{
+  "planner": {
+    "model": "ollama:qwen3:4b",
+    "reasoning": "high"
+  },
+  "analyst": {
+    "model": "ollama:qwen3:1.7b",
+    "reasoning": "low"
+  },
+  "organizer": {
+    "model": "ollama:qwen3:1.7b",
+    "reasoning": "low"
+  },
+  "writer": {
+    "model": "ollama:qwen3:1.7b",
+    "reasoning": "low"
+  },
+  "reviewer": {
+    "model": "ollama:qwen3:4b",
+    "reasoning": "high"
+  },
+  "slides": {
+    "model": "ollama:qwen3:1.7b",
+    "reasoning": "low"
+  }
+}

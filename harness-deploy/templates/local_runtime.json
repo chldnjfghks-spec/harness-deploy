@@ -1,0 +1,13 @@
+{
+  "options": {
+    "num_ctx": 8192,
+    "num_predict": 1400,
+    "num_thread": 4,
+    "num_batch": 128,
+    "temperature": 0.2
+  },
+  "role_output_tokens": {"planner": 512, "analyst": 640, "organizer": 640, "writer": 1800, "reviewer": 512, "slides": 3200},
+  "max_prompt_chars": 24000,
+  "keep_alive": 0,
+  "timeout_seconds": 900
+}

@@ -1,0 +1,172 @@
+{
+  "version": "grouped-agenda-v7",
+  "name": "7개 대항목 · 세부 주제는 소항목",
+  "slide_count": null,
+  "max_slide_count": null,
+  "sections": [
+    {
+      "id": "overview",
+      "title": "프로젝트 개요",
+      "number": 3
+    },
+    {
+      "id": "objectives",
+      "title": "추진 배경과 목표",
+      "number": 4
+    },
+    {
+      "id": "data",
+      "title": "데이터 소개",
+      "number": 5
+    },
+    {
+      "id": "eda_distribution",
+      "title": "EDA - 분포 분석",
+      "number": 6
+    },
+    {
+      "id": "eda_quality",
+      "title": "EDA - 데이터 품질",
+      "number": 7
+    },
+    {
+      "id": "preprocess",
+      "title": "데이터 전처리",
+      "number": 8
+    },
+    {
+      "id": "split",
+      "title": "데이터 분할",
+      "number": 9
+    },
+    {
+      "id": "selection",
+      "title": "모델 선정",
+      "number": 10
+    },
+    {
+      "id": "architecture",
+      "title": "모델 구조",
+      "number": 11
+    },
+    {
+      "id": "training",
+      "title": "학습 설정",
+      "number": 12
+    },
+    {
+      "id": "learning",
+      "title": "학습 결과",
+      "number": 13
+    },
+    {
+      "id": "comparison",
+      "title": "모델 성능 비교",
+      "number": 14
+    },
+    {
+      "id": "evaluation",
+      "title": "최종 성능 평가",
+      "number": 15
+    },
+    {
+      "id": "errors",
+      "title": "오류 사례 분석",
+      "number": 16
+    },
+    {
+      "id": "system",
+      "title": "시스템 설계",
+      "number": 17
+    },
+    {
+      "id": "service",
+      "title": "서비스 구현",
+      "number": 18
+    },
+    {
+      "id": "limitations",
+      "title": "한계와 개선 방향",
+      "number": 19
+    },
+    {
+      "id": "conclusion",
+      "title": "결론 및 참고자료",
+      "number": 20
+    }
+  ],
+  "rules": [
+    "표지 다음은 반드시 목차. 본문은 이 순서를 따른다.",
+    "항목은 페이지 수가 아니다. 한 절을 여러 페이지로 확장할 수 있다.",
+    "목차는 실제 페이지가 있는 대항목만 표시한다. 세부 항목은 대항목 안에 둔다."
+  ],
+  "groups": [
+    {
+      "id": "overview",
+      "title": "프로젝트 개요",
+      "subtitle": "기획 의도 · 추진 배경 · 목표",
+      "sections": [
+        "overview",
+        "objectives"
+      ]
+    },
+    {
+      "id": "data",
+      "title": "데이터 구축 및 전처리",
+      "subtitle": "데이터 소개 · EDA · 전처리 · 분할",
+      "sections": [
+        "data",
+        "eda_distribution",
+        "eda_quality",
+        "preprocess",
+        "split"
+      ]
+    },
+    {
+      "id": "model",
+      "title": "모델 설계 및 학습",
+      "subtitle": "모델 선정 · 구조 · 학습 설정",
+      "sections": [
+        "selection",
+        "architecture",
+        "training"
+      ]
+    },
+    {
+      "id": "results",
+      "title": "학습 결과 및 성능 평가",
+      "subtitle": "학습 결과 · 모델 비교 · 최종 평가",
+      "sections": [
+        "learning",
+        "comparison",
+        "evaluation"
+      ]
+    },
+    {
+      "id": "diagnosis",
+      "title": "오류 사례 분석",
+      "subtitle": "오류 유형 · 사례 · 원인 해석",
+      "sections": [
+        "errors"
+      ]
+    },
+    {
+      "id": "service",
+      "title": "시스템 설계 및 서비스 구현",
+      "subtitle": "시스템 구성 · 처리 흐름 · 서비스",
+      "sections": [
+        "system",
+        "service"
+      ]
+    },
+    {
+      "id": "outlook",
+      "title": "한계와 개선 방향 및 결론",
+      "subtitle": "한계 · 개선 과제 · 결론 · 참고자료",
+      "sections": [
+        "limitations",
+        "conclusion"
+      ]
+    }
+  ]
+}
