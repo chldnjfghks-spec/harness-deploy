@@ -7,7 +7,7 @@ from engine import ROOT
 
 CONTRACT_PATH = ROOT / "templates/deck_policy.json"
 CONTRACT = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
-VERSION = CONTRACT["version"]
+VERSION = CONTRACT["version"] + "-local-batches-v1"
 SECTION_IDS = [s["id"] for s in CONTRACT["sections"]]
 STATUSES = ["자료 확인", "자료 미제공", "미수행", "해당없음"]
 # AI가 반환할 슬라이드 한 장의 항목 정의입니다. type은 값의 자료형을 뜻합니다.
@@ -280,9 +280,19 @@ def create_storyboard(report, manifest, out, title, image_ids):
         + "\n원본 근거:\n"
         + json.dumps(evidence, ensure_ascii=False)
     )
+    # 작은 모델은 긴 원고·모든 출처를 한 번에 받지 않습니다.
+    # 보고서·출처를 빠짐없이 조각별 처리하고 목차는 프로그램에서 합칩니다.
+    runtime_file = ROOT / "templates/local_runtime.json"
+    runtime = json.loads(runtime_file.read_text(encoding="utf-8"))
+    safe_limit = min(6500, runtime.get("max_prompt_chars", 24000) - 2500)
+    if len(prompt) > safe_limit:
+        from slide_batches import create_batched_storyboard
+
+        return create_batched_storyboard(report, manifest, out, title, image_ids)
     schema = out / "storyboard_schema.json"
     schema.write_text(json.dumps(SCHEMA, ensure_ascii=False), encoding="utf-8")
     output = out / "storyboard.json"
+    base_prompt = prompt
     # 무한 재시도를 막기 위해 최초 작성과 오류 수정 요청을 합쳐 두 번만 시도합니다.
     for attempt in range(2):
         (out / f"storyboard_prompt_{attempt}.txt").write_text(prompt, encoding="utf-8")
@@ -296,21 +306,21 @@ def create_storyboard(report, manifest, out, title, image_ids):
             images=[source["file"] for source in selected],
             schema=SCHEMA,
         )
-        payload = json.loads(response["content"])
+        if response.get("output_truncated") or response.get("done_reason") == "length":
+            raise ValueError("슬라이드 설계 출력이 잘렸습니다. 결과를 완료로 저장하지 않습니다.")
         try:
+            payload = json.loads(response["content"])
             plan = assemble_plan(payload)
             errors = validate_plan(plan, manifest, selected_ids)
-        except ValueError as e:
+        except (ValueError, KeyError, TypeError) as e:
             errors = [str(e)]
         if not errors:
             output.write_text(
                 json.dumps(plan, ensure_ascii=False, indent=2), encoding="utf-8"
             )
             return plan, selected_ids
-        prompt += (
+        prompt = base_prompt + (
             "\n검증 오류를 고쳐 전체 JSON을 다시 작성하라:\n"
-            + json.dumps(errors, ensure_ascii=False)
-            + "\n이전 출력:\n"
-            + json.dumps(payload, ensure_ascii=False)
+            + json.dumps(errors, ensure_ascii=False)[:1500]
         )
     raise ValueError("발표 구성 검증 실패: " + "; ".join(errors))
