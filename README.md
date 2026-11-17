@@ -6,6 +6,12 @@
 
 ---
 
+## 실행 화면 예시
+
+![Report Harness 대시보드 실행 화면](./docs/harness_preview.png)
+
+---
+
 ## 핵심 특징
 
 - **3단계 Streamlit 대시보드 (`harness-deploy/app.py`):** 자료 수집·정적 점검 → AI 팀 회의·초안 편집 → PPTX·PDF 발행
